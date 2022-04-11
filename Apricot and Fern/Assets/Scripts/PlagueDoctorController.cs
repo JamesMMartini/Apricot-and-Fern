@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.AI;
 
 public class PlagueDoctorController : NPC
 {
@@ -10,28 +11,75 @@ public class PlagueDoctorController : NPC
 
     [SerializeField] DialogObject[] dialogOpeners;
 
-    bool running;
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform[] navMeshTargets;
+    [SerializeField] Quaternion idleRotation;
 
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    running = true;
+    bool idle;
+    bool choosing;
+    bool isWalking;
 
-    //    //StartCoroutine(Wait());
-    //}
+    private void Start()
+    {
+        idle = true;
+        choosing = false;
+    }
 
-    //IEnumerator Wait()
-    //{
-    //    yield return new WaitForSeconds(10f);
+    private void Update()
+    {
+        if (idle)
+        {
+            if (isWalking && agent.remainingDistance == 0f) // Character needs to be stopped
+            {
+                isWalking = false;
+                animator.SetBool("IsWalking", isWalking);
 
-    //    running = false;
-    //}
+                transform.rotation = idleRotation;
+
+                //Vector3 idleRotation = new Vector3(0, 0, 0);
+                //Vector3 lookPos = idleRotation - transform.position;
+                //lookPos.y = 0;
+                //Quaternion rotation = Quaternion.LookRotation(lookPos);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1f);
+            }
+            else if (!isWalking && agent.remainingDistance > 0f) // Character needs to be started
+            {
+                isWalking = true;
+                animator.SetBool("IsWalking", isWalking);
+            }
+            else if (!isWalking && agent.remainingDistance == 0f && !choosing) // Start a new idle action
+            {
+                StartCoroutine(NewIdleAction());
+            }
+        }
+    }
+
+    IEnumerator NewIdleAction()
+    {
+        choosing = true;
+
+        yield return new WaitForSeconds(5f);
+
+        int newTarget = (int)(Random.value * (navMeshTargets.Length + 1));
+        if (newTarget == navMeshTargets.Length)
+            newTarget--;
+
+        agent.SetDestination(navMeshTargets[newTarget].position);
+        isWalking = true;
+        animator.SetBool("IsWalking", isWalking);
+
+        choosing = false;
+    }
 
     public override void Interacted()
     {
         StartCoroutine(player.GetComponent<PlayerController>().FocusOnObject(gameObject));
 
+        idle = false;
         transform.LookAt(player.transform);
+        agent.SetDestination(transform.position);
+        isWalking = false;
+        animator.SetBool("IsWalking", isWalking);
 
         int opener = (int)(Random.value * dialogOpeners.Length);
         if (opener >= dialogOpeners.Length)
