@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -9,31 +10,47 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask worldLayerMask;
     [SerializeField] LayerMask uiLayerMask;
     [SerializeField] PlayerInput playerInput;
+    [SerializeField] DialogScreen dialogScreen;
+
+    LayerMask activeLayerMask;
+
+    private void Awake()
+    {
+        activeLayerMask = worldLayerMask;
+    }
 
     public void OnInteract(InputValue value)
     {
-        Debug.Log("Clicked");
-
         PlayerClick();
     }
 
     void PlayerClick()
     {
         // Raycast and find the object here
-        RaycastHit ray;
+        RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out ray, 10f, worldLayerMask))
+        if (activeLayerMask == worldLayerMask)
         {
-            if (ray.collider.tag == "NPC")
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f, activeLayerMask))
             {
-                ray.collider.GetComponent<NPC>().Interacted();
+                if (hit.collider.tag == "NPC")
+                {
+                    hit.collider.GetComponent<NPC>().Interacted();
+                }
             }
+        }
+        else
+        {
+            dialogScreen.UIClick();
         }
     }
 
     public IEnumerator FocusOnObject(GameObject target)
     {
         playerInput.SwitchCurrentActionMap("MouseCursor");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        activeLayerMask = uiLayerMask;
         transform.LookAt(target.transform);
         yield return null;
 
@@ -48,5 +65,13 @@ public class PlayerController : MonoBehaviour
         //    transform.rotation = Quaternion.Euler(Vector3.Lerp(current, newRotation, t));
         //    yield return null;
         //}
+    }
+
+    public void Unfocus()
+    {
+        playerInput.SwitchCurrentActionMap("Player");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        activeLayerMask = worldLayerMask;
     }
 }

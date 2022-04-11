@@ -246,7 +246,7 @@
             "id": "7c8eb6cc-00f1-48eb-a3d1-983222303fa4",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "beb5dbac-9860-42ed-a397-45245ce6641a",
                     "expectedControlType": "Button",
@@ -259,11 +259,11 @@
                 {
                     "name": "",
                     "id": "e8ebbf98-ad77-41cd-84d0-be85cfee719e",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "KeyboardMouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
