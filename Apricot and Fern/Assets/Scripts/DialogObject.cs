@@ -9,6 +9,7 @@ public class DialogObject : ScriptableObject
     [SerializeField] string[] lines;
     [SerializeField] DialogObject[] next;
     [SerializeField] string animationTrigger;
+    [SerializeField] bool hasOutcome;
 
     
     public DialogType DialogType { get { return type; } set { type = value; } }
@@ -18,6 +19,8 @@ public class DialogObject : ScriptableObject
     public DialogObject[] NextLines { get { return next; } set { next = value; } }
 
     public string AnimationTrigger { get { return animationTrigger; } set { animationTrigger = value; } }
+
+    public bool HasOutcome { get { return hasOutcome; } set { hasOutcome = value; } }
 }
 
 public enum DialogType

@@ -3,25 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Camera gameCamera;
     [SerializeField] LayerMask worldLayerMask;
     [SerializeField] LayerMask uiLayerMask;
-    [SerializeField] PlayerInput playerInput;
+    [SerializeField] public PlayerInput playerInput;
     [SerializeField] DialogScreen dialogScreen;
+    [SerializeField] GameObject reticle;
+    [SerializeField] GameObject prompt;
+    [SerializeField] CinemachineVirtualCamera floorTimeCamera;
 
     LayerMask activeLayerMask;
+    public bool inFloorTime;
 
     private void Awake()
     {
         activeLayerMask = worldLayerMask;
     }
 
+    private void Update()
+    {
+        if (activeLayerMask == worldLayerMask)
+        {
+            // Raycast and find the object here
+            RaycastHit hit;
+            bool didHit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f, activeLayerMask);
+
+            if (didHit && !prompt.activeInHierarchy) // Show the prompt
+            {
+                if (hit.collider.tag == "NPC")
+                {
+                    reticle.SetActive(false);
+                    prompt.SetActive(true);
+                }
+            }
+            else if (didHit && prompt.activeInHierarchy && hit.collider.tag != "NPC") // Hide the prompt
+            {
+                reticle.SetActive(true);
+                prompt.SetActive(false);
+            }
+            else if (!didHit && prompt.activeInHierarchy) // Hide the prompt
+            {
+                reticle.SetActive(true);
+                prompt.SetActive(false);
+            }
+        }
+    }
+
     public void OnInteract(InputValue value)
     {
-        PlayerClick();
+        Debug.Log("INTERACTED");
+        if (!inFloorTime)
+        {
+            PlayerClick();
+        }
+        else
+        {
+            LeaveFloorTime();
+        }
     }
 
     void PlayerClick()
@@ -31,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (activeLayerMask == worldLayerMask)
         {
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f, activeLayerMask))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f, activeLayerMask))
             {
                 if (hit.collider.tag == "NPC")
                 {
@@ -43,6 +85,21 @@ public class PlayerController : MonoBehaviour
         {
             dialogScreen.UIClick();
         }
+    }
+
+    public void EnterFloorTime()
+    {
+        playerInput.SwitchCurrentActionMap("FloorTime");
+        Debug.Log(playerInput.currentActionMap.name);
+        floorTimeCamera.Priority += 2;
+        inFloorTime = true;
+    }
+
+    public void LeaveFloorTime()
+    {
+        playerInput.SwitchCurrentActionMap("Player");
+        floorTimeCamera.Priority -= 2;
+        inFloorTime = false;
     }
 
     public IEnumerator FocusOnObject(GameObject target)
@@ -69,6 +126,9 @@ public class PlayerController : MonoBehaviour
 
     public void Unfocus()
     {
+        Vector3 newRotation = new Vector3(0, transform.rotation.y, 0);
+        transform.rotation = Quaternion.Euler(newRotation);
+
         playerInput.SwitchCurrentActionMap("Player");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

@@ -18,3 +18,4 @@ MonoBehaviour:
   - Aw, that's a bummer. Well, let me know if you do!
   next: []
   animationTrigger: 
+  hasOutcome: 1

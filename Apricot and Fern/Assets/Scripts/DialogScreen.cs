@@ -22,18 +22,30 @@ public class DialogScreen : MonoBehaviour
     DialogObject activeLine;
     int activeIndex;
     Animator activeAnimator;
+    GameObject npc;
 
-    public void StartConversation(DialogObject dialog, string name, Animator animator)
+    int outcome;
+
+    public void StartConversation(DialogObject dialog, string name, Animator animator, GameObject npcObject)
     {
+        outcome = -1;
+
         actionScreen.SetActive(false);
         uiObjects.SetActive(true);
 
+        npc = npcObject;
         activeAnimator = animator;
 
         if (dialog.DialogType == DialogType.Dialog)
         {
             activeLine = dialog;
-            
+
+            // Determine if we need to set the outcome of the choice
+            if (activeLine.HasOutcome)
+            {
+                outcome = activeIndex;
+            }
+
             if (activeLine.AnimationTrigger != "")
             {
                 activeAnimator.SetTrigger(activeLine.AnimationTrigger);
@@ -48,6 +60,11 @@ public class DialogScreen : MonoBehaviour
 
     void EndConversation()
     {
+        if (outcome != -1)
+        {
+            npc.GetComponent<NPC>().SetOutcome(outcome);
+        }
+
         actionScreen.SetActive(true);
 
         player.GetComponent<PlayerController>().Unfocus();
@@ -67,6 +84,12 @@ public class DialogScreen : MonoBehaviour
         {
             activeLine = activeLine.NextLines[0];
             activeIndex = 0;
+
+            // Determine if we need to set the outcome of the choice
+            if (activeLine.HasOutcome)
+            {
+                outcome = activeIndex;
+            }
 
             if (activeLine.AnimationTrigger != "")
             {
@@ -112,6 +135,12 @@ public class DialogScreen : MonoBehaviour
         {
             activeLine = nextLine;
             dialogLine.text = activeLine.Lines[activeIndex];
+
+            // Determine if we need to set the outcome of the choice
+            if (activeLine.HasOutcome)
+            {
+                outcome = activeIndex;
+            }
 
             if (activeLine.AnimationTrigger != "")
             {
@@ -173,6 +202,7 @@ public class DialogScreen : MonoBehaviour
                     {
                         // Change the line
                         activeIndex = i;
+
                         DialogObject nextLine = activeLine.NextLines[0];
 
                         // Clear out the button objects

@@ -73,6 +73,8 @@ public class PlagueDoctorController : NPC
 
     public override void Interacted()
     {
+        StopAllCoroutines();
+
         StartCoroutine(player.GetComponent<PlayerController>().FocusOnObject(gameObject));
 
         idle = false;
@@ -86,6 +88,6 @@ public class PlagueDoctorController : NPC
             opener--;
 
         DialogScreen dialogScreen = GameObject.Find("Dialog Screen").GetComponent<DialogScreen>();
-        dialogScreen.StartConversation(dialogOpeners[opener], "Dandelion", animator);
+        dialogScreen.StartConversation(dialogOpeners[opener], CharacterName, animator, gameObject);
     }
 }
