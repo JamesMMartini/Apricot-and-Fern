@@ -60,16 +60,16 @@ public class DialogScreen : MonoBehaviour
 
     void EndConversation()
     {
-        if (outcome != -1)
-        {
-            npc.GetComponent<NPC>().SetOutcome(outcome);
-        }
-
         actionScreen.SetActive(true);
 
         player.GetComponent<PlayerController>().Unfocus();
 
         uiObjects.SetActive(false);
+
+        if (outcome != -1)
+        {
+            npc.GetComponent<NPC>().SetOutcome(outcome);
+        }
     }
 
     IEnumerator AdvanceDialog()

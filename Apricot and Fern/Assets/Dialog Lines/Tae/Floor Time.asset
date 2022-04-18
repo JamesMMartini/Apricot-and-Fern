@@ -17,4 +17,5 @@ MonoBehaviour:
   - Do you want to do some floor time?
   next:
   - {fileID: 11400000, guid: f734cf5e297efaa4f83bb6e4a5f4a94b, type: 2}
-  animationTrigger: 
+  animationTrigger: Attack
+  hasOutcome: 0

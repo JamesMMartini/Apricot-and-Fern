@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         {
             // Raycast and find the object here
             RaycastHit hit;
-            bool didHit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 10f, activeLayerMask);
+            bool didHit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 5f, activeLayerMask);
 
             if (didHit && !prompt.activeInHierarchy) // Show the prompt
             {
@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputValue value)
     {
-        Debug.Log("INTERACTED");
         if (!inFloorTime)
         {
             PlayerClick();
@@ -90,7 +89,6 @@ public class PlayerController : MonoBehaviour
     public void EnterFloorTime()
     {
         playerInput.SwitchCurrentActionMap("FloorTime");
-        Debug.Log(playerInput.currentActionMap.name);
         floorTimeCamera.Priority += 2;
         inFloorTime = true;
     }
