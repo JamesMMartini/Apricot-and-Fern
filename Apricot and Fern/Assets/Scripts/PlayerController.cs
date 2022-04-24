@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask uiLayerMask;
     [SerializeField] public PlayerInput playerInput;
     [SerializeField] DialogScreen dialogScreen;
+    [SerializeField] TicTacToeScreen ticTacToeScreen;
     [SerializeField] GameObject reticle;
     [SerializeField] GameObject prompt;
     [SerializeField] CinemachineVirtualCamera floorTimeCamera;
@@ -82,7 +83,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            dialogScreen.UIClick();
+            if (ticTacToeScreen.GamePlaying)
+                ticTacToeScreen.Click();
+            else
+                dialogScreen.UIClick();
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class DogKnightController : NPC
 {
@@ -16,7 +17,10 @@ public class DogKnightController : NPC
     [SerializeField] DialogObject openingLine;
     [SerializeField] DialogObject hiddenLine;
     [SerializeField] DialogObject foundLine;
-    
+
+    [SerializeField] VisualEffect poof;
+    [SerializeField] AudioSource footstep;
+
     bool hiding;
     bool isWalking;
 
@@ -38,6 +42,14 @@ public class DogKnightController : NPC
             isWalking = true;
             animator.SetBool("IsWalking", isWalking);
         }
+    }
+
+    public void PuffGround()
+    {
+        footstep.Play();
+
+        poof.Reinit();
+        poof.Play();
     }
 
     public override void Interacted()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
+using UnityEngine.VFX;
 
 public class PlagueDoctorController : NPC
 {
@@ -15,6 +16,9 @@ public class PlagueDoctorController : NPC
     [SerializeField] Transform[] navMeshTargets;
     [SerializeField] Quaternion idleRotation;
 
+    [SerializeField] VisualEffect poof;
+    [SerializeField] AudioSource footstep;
+
     bool idle;
     bool choosing;
     bool isWalking;
@@ -23,6 +27,14 @@ public class PlagueDoctorController : NPC
     {
         idle = true;
         choosing = false;
+    }
+
+    public void PuffGround()
+    {
+        footstep.Play();
+
+        poof.Reinit();
+        poof.Play();
     }
 
     private void Update()
