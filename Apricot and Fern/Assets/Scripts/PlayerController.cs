@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         activeLayerMask = uiLayerMask;
-        transform.LookAt(target.transform);
+        gameCamera.transform.LookAt(target.transform);
         yield return null;
 
         //Vector3 current = transform.rotation.eulerAngles;
@@ -128,8 +128,8 @@ public class PlayerController : MonoBehaviour
 
     public void Unfocus()
     {
-        Vector3 newRotation = new Vector3(0, transform.rotation.y, 0);
-        transform.rotation = Quaternion.Euler(newRotation);
+        //Vector3 newRotation = new Vector3(0, transform.rotation.y, 0);
+        //transform.rotation = Quaternion.Euler(newRotation);
 
         playerInput.SwitchCurrentActionMap("Player");
         Cursor.visible = false;

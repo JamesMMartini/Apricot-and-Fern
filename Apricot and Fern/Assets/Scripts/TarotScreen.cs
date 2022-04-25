@@ -56,6 +56,13 @@ public class TarotScreen : MonoBehaviour
             // Set the card texture
             Sprite[] allCardSprites = Resources.LoadAll<Sprite>("Tarot Cards");
             int cardSpriteIndex = Random.Range(0, allCardSprites.Length - 1);
+
+            foreach (GameObject card in tarotCards)
+            {
+                if (card.GetComponent<Image>().sprite == allCardSprites[cardSpriteIndex])
+                    cardSpriteIndex = Random.Range(0, allCardSprites.Length - 1);
+            }
+
             newCard.GetComponent<Image>().sprite = allCardSprites[cardSpriteIndex];
 
             // Set the dialog text

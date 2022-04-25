@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56496ae284ab31441a4f29287931580e, type: 3}
-  m_Name: YesNo
+  m_Name: Dandelion Responses
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   lines:
-  - Yes!
-  - No right now
+  - Straightforward. Delicious. Sweet. I can see that, for sure.
+  - A classic and very tasty too boot.
+  - Hahaha! Versatile and loved by all. How very true.
   next:
-  - {fileID: 11400000, guid: 9e2d2123643db18418bb48931b1f7f01, type: 2}
-  animationTrigger: Sit No
+  - {fileID: 11400000, guid: 80d7af00ba4803741b5e7a38c63407ec, type: 2}
+  animationTrigger: Talking 2
   hasOutcome: 0
