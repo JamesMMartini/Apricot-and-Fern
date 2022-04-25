@@ -59,8 +59,13 @@ public class TarotScreen : MonoBehaviour
 
             foreach (GameObject card in tarotCards)
             {
-                if (card.GetComponent<Image>().sprite == allCardSprites[cardSpriteIndex])
-                    cardSpriteIndex = Random.Range(0, allCardSprites.Length - 1);
+                if (card != null)
+                {
+                    while (card.GetComponent<Image>().sprite == allCardSprites[cardSpriteIndex])
+                    {
+                        cardSpriteIndex = Random.Range(0, allCardSprites.Length - 1);
+                    }
+                }
             }
 
             newCard.GetComponent<Image>().sprite = allCardSprites[cardSpriteIndex];
