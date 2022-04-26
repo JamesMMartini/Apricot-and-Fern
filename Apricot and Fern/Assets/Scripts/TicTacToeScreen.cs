@@ -22,6 +22,8 @@ public class TicTacToeScreen : MonoBehaviour
 
     [SerializeField] DialogObject winLine;
     [SerializeField] DialogObject loseLine;
+
+    [SerializeField] AudioSource tic;
     
     GameObject npc;
     GameObject[][] spaces;
@@ -91,6 +93,8 @@ public class TicTacToeScreen : MonoBehaviour
                                 newMarker.transform.SetParent(pieces.transform);
 
                                 markers[row][col] = newMarker;
+
+                                tic.Play();
 
                                 if (FindWinner() == null)
                                     StartCoroutine(aiPlay());
@@ -203,6 +207,8 @@ public class TicTacToeScreen : MonoBehaviour
         newMarker.transform.SetParent(pieces.transform);
 
         markers[row][col] = newMarker;
+
+        tic.Play();
 
         if (FindWinner() != null)
             EndGame();

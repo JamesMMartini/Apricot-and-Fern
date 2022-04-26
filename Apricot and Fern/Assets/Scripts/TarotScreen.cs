@@ -20,6 +20,8 @@ public class TarotScreen : MonoBehaviour
 
     [SerializeField] DialogObject finalLine;
 
+    [SerializeField] AudioSource cardFLip;
+
     GameObject[] tarotCards;
     DialogObject activeLine;
     GameObject npc;
@@ -84,6 +86,8 @@ public class TarotScreen : MonoBehaviour
             }
             
             tarotRead++;
+
+            cardFLip.Play();
 
             StartCoroutine(NextCard());
         }
