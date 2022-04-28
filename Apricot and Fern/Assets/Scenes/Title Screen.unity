@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Left Click to play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 15a8917af4f866b4da327cbe34952f41, type: 2}
-  m_sharedMaterial: {fileID: -2657322968957331393, guid: 15a8917af4f866b4da327cbe34952f41,
+  m_fontAsset: {fileID: 11400000, guid: a8e9192dffd11c7449b86e3671a2dac2, type: 2}
+  m_sharedMaterial: {fileID: -8318469000606938339, guid: a8e9192dffd11c7449b86e3671a2dac2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -566,8 +566,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Apricot and Fern
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 15a8917af4f866b4da327cbe34952f41, type: 2}
-  m_sharedMaterial: {fileID: -2657322968957331393, guid: 15a8917af4f866b4da327cbe34952f41,
+  m_fontAsset: {fileID: 11400000, guid: a8e9192dffd11c7449b86e3671a2dac2, type: 2}
+  m_sharedMaterial: {fileID: -8318469000606938339, guid: a8e9192dffd11c7449b86e3671a2dac2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -806,8 +806,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: by James Martini
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 15a8917af4f866b4da327cbe34952f41, type: 2}
-  m_sharedMaterial: {fileID: -2657322968957331393, guid: 15a8917af4f866b4da327cbe34952f41,
+  m_fontAsset: {fileID: 11400000, guid: a8e9192dffd11c7449b86e3671a2dac2, type: 2}
+  m_sharedMaterial: {fileID: -8318469000606938339, guid: a8e9192dffd11c7449b86e3671a2dac2,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

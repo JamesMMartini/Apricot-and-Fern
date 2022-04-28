@@ -16,9 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject reticle;
     [SerializeField] GameObject prompt;
     [SerializeField] CinemachineVirtualCamera floorTimeCamera;
+    [SerializeField] GameObject paperUIObjects;
+    [SerializeField] AudioSource paperFlip;
 
     LayerMask activeLayerMask;
     public bool inFloorTime;
+    bool letterShown;
 
     private void Awake()
     {
@@ -35,13 +38,13 @@ public class PlayerController : MonoBehaviour
 
             if (didHit && !prompt.activeInHierarchy) // Show the prompt
             {
-                if (hit.collider.tag == "NPC")
+                if (hit.collider.tag == "NPC" || hit.collider.tag == "Letter")
                 {
                     reticle.SetActive(false);
                     prompt.SetActive(true);
                 }
             }
-            else if (didHit && prompt.activeInHierarchy && hit.collider.tag != "NPC") // Hide the prompt
+            else if (didHit && prompt.activeInHierarchy && hit.collider.tag != "NPC" && hit.collider.tag != "Letter") // Hide the prompt
             {
                 reticle.SetActive(true);
                 prompt.SetActive(false);
@@ -56,9 +59,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputValue value)
     {
-        if (!inFloorTime)
+        if (!inFloorTime && !letterShown)
         {
             PlayerClick();
+        }
+        else if (letterShown)
+        {
+            CloseLetter();
         }
         else
         {
@@ -79,6 +86,10 @@ public class PlayerController : MonoBehaviour
                 {
                     hit.collider.GetComponent<NPC>().Interacted();
                 }
+                else if (hit.collider.tag == "Letter")
+                {
+                    ShowLetter();
+                }
             }
         }
         else
@@ -95,6 +106,22 @@ public class PlayerController : MonoBehaviour
         playerInput.SwitchCurrentActionMap("FloorTime");
         floorTimeCamera.Priority += 2;
         inFloorTime = true;
+    }
+
+    void ShowLetter()
+    {
+        playerInput.SwitchCurrentActionMap("MouseCursor");
+        letterShown = true;
+        paperUIObjects.SetActive(true);
+        paperFlip.Play();
+    }
+
+    void CloseLetter()
+    {
+        playerInput.SwitchCurrentActionMap("Player");
+        letterShown = false;
+        paperUIObjects.SetActive(false);
+        paperFlip.Play();
     }
 
     public void LeaveFloorTime()
