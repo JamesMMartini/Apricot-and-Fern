@@ -33700,7 +33700,7 @@ Transform:
   - {fileID: 1310099045}
   - {fileID: 94291193}
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1954842896 stripped
 Transform:
@@ -35599,7 +35599,7 @@ Transform:
   - {fileID: 1231270221}
   - {fileID: 1916076436}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2075034113 stripped
 Transform:
