@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41dbc61787b6194097d9515315b0e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: 
+  CharacterName: Dandelion
   animator: {fileID: 57457834}
   player: {fileID: 1553260605}
   dialogOpeners:
