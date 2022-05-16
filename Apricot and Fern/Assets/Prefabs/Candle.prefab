@@ -209,10 +209,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1952736015018107185}
     m_Modifications:
+    - target: {fileID: 958800534318925428, guid: 6af594ec822b0d841896bd627ba57625,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 958800534318925429, guid: 6af594ec822b0d841896bd627ba57625,
         type: 3}
       propertyPath: m_Name
       value: Smoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 958800534318925429, guid: 6af594ec822b0d841896bd627ba57625,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 958800534318925430, guid: 6af594ec822b0d841896bd627ba57625,
         type: 3}
